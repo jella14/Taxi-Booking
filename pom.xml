@@ -13,7 +13,7 @@
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>utf-8</project.reporting.outputEncoding>
-    <sonar.host.url>http://114.14.12.12:9000/</sonar.host.url>       
+    <sonar.host.url>http://3.6.87.64:9000//</sonar.host.url>       
   </properties>
 
   <modules>
