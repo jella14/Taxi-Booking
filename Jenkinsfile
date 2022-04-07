@@ -1,26 +1,34 @@
 pipeline {
-    agent any
+    agent {label "Label-1"}
     environment {
-        PATH = "/opt/apache-maven-3.6.3/bin:$PATH"
+    DOCKERHUB_CREDENTIALS = credentials('Docker')
     }
-    stages {
-        stage("clone code"){
+    stages { 
+        stage('SCM Checkout') {
             steps{
-               git credentialsId: 'git_credentials', url: 'https://github.com/ravdy/hello-world.git'
+            git 'https://github.com/jella14/Node-JS.git'
             }
         }
-        stage("build code"){
-            steps{
-              sh "mvn clean install"
+
+        stage('Build docker image') {
+            steps {  
+                sh 'docker build -t jella96/Taxi:$BUILD_NUMBER .'
             }
         }
-        stage("deploy"){
+        stage('login to dockerhub') {
             steps{
-              sshagent(['deploy_user']) {
-                 sh "scp -o StrictHostKeyChecking=no webapp/target/webapp.war ec2-user@13.229.183.126:/opt/apache-tomcat-8.5.55/webapps"
-                 
-                }
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'
             }
+        }
+        stage('push image') {
+            steps{
+                sh 'docker push jella96/Taxi:$BUILD_NUMBER'
+            }
+        }
+}
+post {
+        always {
+            sh 'docker logout'
         }
     }
 }
