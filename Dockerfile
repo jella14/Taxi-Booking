@@ -1,2 +1,2 @@
 FROM tomcat:8
-COPY **/*.war /usr/local/tomcat/webapps/
+COPY /opt/JenkinsJobs/workspace/Taxi/webapp/target/webapp.war /usr/local/tomcat/webapps/
