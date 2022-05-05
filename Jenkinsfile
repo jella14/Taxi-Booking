@@ -14,7 +14,7 @@ pipeline {
         }
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t jella96/taxi:$BUILD_NUMBER .'
+                sh 'docker build -t jella96/taxi:1.0 .'
             }
         }
         stage('login to dockerhub') {
@@ -26,7 +26,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push jella96/taxi:$BUILD_NUMBER'
+                sh 'docker push jella96/taxi:1.0'
             }
         }
 }
