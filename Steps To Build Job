@@ -1,0 +1,4 @@
+service docker start
+usermod -aG docker $USER
+chmod 666 /var/run/docker.sock
+scp -r /opt/JenkinsJobs/workspace/Taxi-Booking/webapp/target/webapp.war /opt/JenkinsJobs/workspace/Taxi-Booking
